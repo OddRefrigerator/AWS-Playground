@@ -1,0 +1,45 @@
+
+
+
+http://citynews5-lh.akamaihd.net/i/citynews5_live@178316/master.m3u8
+http://citynews5-lh.akamaihd.net/i/citynews5_live@178316/index_2000_av-p.m3u8
+https://amdcitynews-i.akamaihd.net/hls/live/268144/CityNews-Daily/master.m3u8
+
+
+
+#EXTINF:-1,City TV: BT Toronto
+http://bthls-i.akamaihd.net/hls/live/264151/BTTORHLS/master.m3u8
+
+#EXTINF:-1,City TV: BT Vancouver
+http://btflash-lh.akamaihd.net/i/BTVANFLASH_live@120224/master.m3u8
+ 
+#EXTINF:-1,City TV: BT Calgary
+http://btflash-lh.akamaihd.net/i/BTCALFLASH_live@120221/master.m3u8
+       
+#EXTINF:-1,City TV: BT Toronto
+http://btflash-lh.akamaihd.net/i/BTTOFLASH_live@120219/master.m3u8
+
+#EXTINF:-1,City TV: BT Montreal
+http://btflash-lh.akamaihd.net/i/BTMTLFLASH_live@120220/master.m3u8
+
+#EXTINF:-1,WGN
+http://wgntribune-lh.akamaihd.net/i/WGNPrimary_1@304622/master.m3u8
+
+#EXTINF:0, tvg-logo="" group-title="",Adult Swim
+https://adultswimhls-i.akamaihd.net/hls/live/238460/adultswim/main/1/master.m3u8
+
+
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="https://i.imgur.com/BUiwYlr.png" group-title="CANADA",Space
+http://pe-ak-lp01a-9c9media.akamaized.net/live/Space/p/hls/00000201/689924a518f2c776/index/2176f3ac/live/stream/h264/v1/3500000/manifest.m3u8
+
+http://cnn-i.akamaihd.net/hls/live/253954/dotcomlive_2/master.m3u8
+
+https://pe-ak-lp01a-9c9media.akamaized.net/live/News1BNNDigi/p/dash/00000001/1bba52dc66e4c68e/manifest.mpd
+
+https://bmplayer-a.akamaihd.net/shareable/embedssl.html?dc=ctvnews_web&amp;cid=1000604&amp;col=379&amp
+
+http://ctvnews-lh.akamaihd.net/i/ctvnews_web@1000604/master.m3u8
+
+
+#EXTINF:-1,NBC
+https://klive-a.akamaihd.net/dc-1/live/hls/p/2306121/e/1_5ma8vp87/sd/6000/t/6a6_Jc2WttgUqq6H4yJIJw/index-s32.m3u8
