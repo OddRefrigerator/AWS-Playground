@@ -1,3 +1,5 @@
+Ubuntu Server 16.04 LTS (HVM), SSD Volume Type - ami-5e8bb23b
+
 sudo groupadd -g 420 kodi
 sudo useradd -c 'kodi user' -u 420 -g kodi -G audio,video \
    -d /var/lib/kodi -s /usr/bin/nologin kodi
@@ -40,7 +42,7 @@ sudo service kodi start
 
 
 .passwd-s3fs
-media-cloud-kodi:AKIAICD2YOQH5E5JBZCA:a26ZXdKbzYV8H6RPXIOk76nk2zj8Ad6LDoROUXw1
+
 
 
 
