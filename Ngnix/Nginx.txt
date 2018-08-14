@@ -23,5 +23,39 @@ sudo ln -s /etc/nginx/sites-available/stevehome.online /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
 
+'copy certs in folder below
+sudo mkdir /etc/nginx/ssl
+sudo wget https://drive.google.com/file/d/1uAwv3pQQgmySsnsoUQnE-YqFtCi48atf/view?usp=sharing -O stevehome.online-cert.pem
+sudo wget https://drive.google.com/file/d/1jV-1U0227tEBqh5anN7W6GFdrztvDHLc/view?usp=sharing -O stevehome.online-key.pem
+
+sudo nano /etc/nginx/sites-available/stevehome.online
+
+'
+server{
+	listen 80;
+	server_name stevehome.online;
+    return 301 https://stevehome.online;
+}
+server {
+	listen 443 ssl;
+    server_name stevehome.online;
+	
+	ssl on;
+	ssl_certificate /etc/nginx/ssl/stevehome.online-cert.pem;
+	ssl_certificate_key /etc/nginx/ssl/stevehome.online-key.pem;
+	
+    location / {
+        proxy_pass http://172.31.26.36:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+		
+		# re-write redirects to http as to https
+        proxy_redirect http:// https://;
+		
+    }
+}
+'
 
 
