@@ -1,0 +1,9 @@
+Web setup 
+
+install IIS
+
+create website
+
+copy files
+
+Create firewalll rule

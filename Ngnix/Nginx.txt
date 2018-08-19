@@ -6,31 +6,6 @@ sudo systemctl reload nginx
 sudo rm /etc/nginx/sites-enabled/default
 sudo nano /etc/nginx/sites-available/stevehome.online
 '
-server {
-    listen 80;
-    server_name stevehome.online;
-
-    location / {
-        proxy_pass http://18.191.29.10:80;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-'
-sudo ln -s /etc/nginx/sites-available/stevehome.online /etc/nginx/sites-enabled/stevehome.online
-sudo nginx -t
-sudo systemctl reload nginx
-
-'copy certs in folder below
-sudo mkdir /etc/nginx/ssl
-sudo wget https://drive.google.com/file/d/1uAwv3pQQgmySsnsoUQnE-YqFtCi48atf/view?usp=sharing -O stevehome.online-cert.pem
-sudo wget https://drive.google.com/file/d/1jV-1U0227tEBqh5anN7W6GFdrztvDHLc/view?usp=sharing -O stevehome.online-key.pem
-
-sudo nano /etc/nginx/sites-available/stevehome.online
-
-'
 server{
 	listen 80;
 	server_name stevehome.online;
@@ -57,5 +32,9 @@ server {
     }
 }
 '
-
-
+sudo ln -s /etc/nginx/sites-available/stevehome.online /etc/nginx/sites-enabled/stevehome.online
+sudo mkdir /etc/nginx/ssl
+sudo curl -L -o /etc/nginx/ssl/stevehome.online-cert.pem "https://drive.google.com/uc?export=download&id=1P7Cv1O03EgdW-PtLOiytynSkDX530huI"
+sudo curl -L -o /etc/nginx/ssl/stevehome.online-key.pem "https://drive.google.com/uc?export=download&id=1vE5ytGVBOtYNZIwmUVQMZa1JA1Sm27E7"
+sudo nginx -t
+sudo systemctl reload nginx
