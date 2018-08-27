@@ -1,0 +1,56 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "bento/ubuntu-14.04"
+  
+  config.vm.host_name = "NgingxProxy"
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 443, host: 4444
+  
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get update
+    apt-get upgrade -y
+	 
+    apt-get install nginx-full -y 
+	nginx -t
+    systemctl reload nginx
+	 
+	apt-get autoremove
+  SHELL
+  
+  #config.ssh.username = 'root'
+  #config.ssh.password = 'ProxyAdmin2018'
+  #config.ssh.insert_key = 'true'
+  
+  config.vm.post_up_message = <<-MESSAGE
+  
+	                  `. \
+                    \_)
+    ____ _,..OOO......\...OOO-...._ ___
+  .`    '_.-(  9``````````P  )--...)   `.
+ ` ((     `  || __         ||   `     )) `
+(          ) |<`  ````---__||  (          )
+ `        `  ||) ,xx  xx.  //)__`        `  
+  `-____-`   ,/  O`  O`   //,'_ )`-____-` 
+           ,/     ,,     //  |//
+          /      ((          //
+         (   (._    _,)     (_) -OH YEAH!
+          \    \````/        /
+           \    ^--^        /
+            \_   _____   __/
+              | |     | |
+             (   )   (   )
+           ,--'~'\   /'~'--,
+          (_______) (_______)
+	
+	Machine up and running on port 2222
+	Nginx proxy for resume
+  
+  MESSAGE
+  
+end

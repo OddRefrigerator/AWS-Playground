@@ -56,4 +56,6 @@ $site = $site = new-WebSite -name "Resume"
                             -ApplicationPool "ResumeAppPool" 
                             -force
 							
+Stop-WebSite -Name "Default Web Site"
+
 New-NetFirewallRule -DisplayName "Allow traffice for resume" -Direction Inbound -LocalPort 8080 -Protocol TCP -Action Allow
