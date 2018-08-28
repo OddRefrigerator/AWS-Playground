@@ -22,7 +22,6 @@ Vagrant.configure("2") do |config|
     apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y
 	 
     apt-get install nginx-full unrar -y  
-	nginx -t
 	
 	rm -rf /etc/nginx/sites-available/default
 	
@@ -31,7 +30,8 @@ Vagrant.configure("2") do |config|
 	cp *.pem /etc/nginx/ssl/
 	cp stevehome.online /etc/nginx/sites-available/
 	ln -s /etc/nginx/sites-available/stevehome.online /etc/nginx/sites-enabled/stevehome.online
-		
+	openssl dhparam -out /etc/nginx/dhparam.pem 2048
+	
 	nginx -t
     service nginx restart
 	echo "nginx service restarted"
@@ -44,15 +44,15 @@ Vagrant.configure("2") do |config|
          _nnnn_
         dGGGGMMb
        @p~qp~~qMb
-       M|@||@) M|
-       @,----.JM|
-      JS^\__/  qKL       Base box bento/ubuntu-16.04
-     dZP        qKRb     SSH 2222 (guest)
-    dZP          qKKb    HTTP 80 (guest) => 8080 (host)
-   fZP            SMMb   HTTPS 443 (guest) => 4444 (host)
-   HZM            MMMM   Cert location /etc/nginx/ssl/
-   FqM            MMMM   Version 0.0.1b
- __| ".        |\dS"qML  Keywords nginx unrar ssl certificate tls ubuntu
+       M|@||@) M|        Base box bento/ubuntu-16.04
+       @,----.JM|        SSH 2222 (guest)
+      JS^\__/  qKL       HTTP 80 (guest) => 8080 (host)
+     dZP        qKRb     HTTPS 443 (guest) => 4444 (host)
+    dZP          qKKb    Log location /var/logs/nginx
+   fZP            SMMb   Cert location /etc/nginx/ssl/
+   HZM            MMMM   Version 0.0.1b
+   FqM            MMMM   Keywords nginx unrar ssl certificate tls ubuntu
+ __| ".        |\dS"qML  
  |    `.       | `' \Zq
 _)      \.___.,|     .'
 \____   )MMMMMP|   .'
