@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
 	  v.name = "nginx"
 	end
 
-  config.vm.host_name = "nginx.stevehome.online"
+  #config.vm.host_name = "nginx.stevehome.online"
   
   config.vm.box = "bento/ubuntu-16.04"
   
@@ -19,13 +19,12 @@ Vagrant.configure("2") do |config|
   config.vm.provision "file", source: "setupPackage.rar", destination: "~/setupPackage.rar"
   
   config.vm.provision "shell", inline: <<-SHELL
-    apt-get update
-    apt-get upgrade -y
+    apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y
 	 
     apt-get install nginx-full unrar -y  
 	nginx -t
 	
-	rm -f /etc/nginx/sites-enabled/default
+	rm -rf /etc/nginx/sites-available/default
 	
 	mkdir /etc/nginx/ssl/
 	unrar x setupPackage.rar
@@ -35,6 +34,7 @@ Vagrant.configure("2") do |config|
 		
 	nginx -t
     service nginx restart
+	echo "nginx service restarted"
 	
 	apt-get autoremove
   SHELL
@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
        @p~qp~~qMb
        M|@||@) M|
        @,----.JM|
-      JS^\__/  qKL       Base bento/ubuntu-16.04
+      JS^\__/  qKL       Base box bento/ubuntu-16.04
      dZP        qKRb     SSH 2222 (guest)
     dZP          qKKb    HTTP 80 (guest) => 8080 (host)
    fZP            SMMb   HTTPS 443 (guest) => 4444 (host)

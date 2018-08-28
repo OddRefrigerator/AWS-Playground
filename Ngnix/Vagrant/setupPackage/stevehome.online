@@ -1,0 +1,27 @@
+server{
+        listen 80;
+        server_name 192.168.1.106;
+    return 301 https://192.168.1.106;
+}
+server {
+        listen 443 ssl;
+    server_name 192.168.1.106;
+
+        ssl on;
+        ssl_certificate /etc/nginx/ssl/stevehome.online-cert.pem;
+        ssl_certificate_key /etc/nginx/ssl/stevehome.online-key.pem;
+
+    location / {
+		#Redirect to local IIS on laptop
+        proxy_pass http://192.168.1.106:80;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+                # re-write redirects to http as to https
+        proxy_redirect http:// https://;
+
+    }
+}
+
