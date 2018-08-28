@@ -24,36 +24,39 @@ Vagrant.configure("2") do |config|
 	 
     apt-get install nginx-full unrar -y  
 	nginx -t
-    service nginx restart
+	
+	rm -f /etc/nginx/sites-enabled/default
 	
 	mkdir /etc/nginx/ssl/
-	
-	#cp *.pem /etc/nginx/ssl/
-	#ln -s /etc/nginx/sites-available/stevehome.online /etc/nginx/sites-enabled/stevehome.online
-	#rm /etc/nginx/sites-enabled/default
+	unrar x setupPackage.rar
+	cp *.pem /etc/nginx/ssl/
+	cp stevehome.online /etc/nginx/sites-available/
+	ln -s /etc/nginx/sites-available/stevehome.online /etc/nginx/sites-enabled/stevehome.online
 		
 	nginx -t
     service nginx restart
 	
 	apt-get autoremove
   SHELL
-  
-  #config.ssh.username = 'root'
-  #config.ssh.password = 'ProxyAdmin2018'
-  #config.ssh.insert_key = 'true'
-  
+    
   config.vm.post_up_message = <<-MESSAGE
-          _______  
-         /       /
-___     /   ____/   
-\   \  /   /\       SSH 2222 (guest)
- \   \/___/  \      HTTP 80 (guest) => 8080 (host)
-  \       \   \     HTTPS 443 (guest) => 4444 (host)
-   \_______\   \    Cert location /etc/nginx/ssl/
-           /   /    Version 0.0.1b    
-          /   /     Keywords nginx unrar ssl certificate tls
-          \  /        
-           \/
+		   
+         _nnnn_
+        dGGGGMMb
+       @p~qp~~qMb
+       M|@||@) M|
+       @,----.JM|
+      JS^\__/  qKL       Base bento/ubuntu-16.04
+     dZP        qKRb     SSH 2222 (guest)
+    dZP          qKKb    HTTP 80 (guest) => 8080 (host)
+   fZP            SMMb   HTTPS 443 (guest) => 4444 (host)
+   HZM            MMMM   Cert location /etc/nginx/ssl/
+   FqM            MMMM   Version 0.0.1b
+ __| ".        |\dS"qML  Keywords nginx unrar ssl certificate tls ubuntu
+ |    `.       | `' \Zq
+_)      \.___.,|     .'
+\____   )MMMMMP|   .'
+     `-'       `--'
   
   MESSAGE
   
