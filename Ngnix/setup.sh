@@ -1,27 +1,29 @@
 #!/bin/bash
-
-#------------------------------------------
-# Tested with Docker image ubuntu:16.04
-#------------------------------------------
+#: Title : Setup Nginx revers proxy
+#: Date : 2018-09-10
+#: Author : "Stephen Ancliffe" <stephen.ancliffe@gmail.com>
+#: Version : 1.0
+#: Description : Update & Upgrade Ubuntu 16.04. Install nginx-full openssl wget. Configure proxy.
+#: Options : IP address, SSL certificate, SSL key
 
 
 #------------------------------------------
 # Variables
 #------------------------------------------
-IP=127.0.0.1
-SSLcert=www
-SSLkey=keywww
+WebSrvAddress=192.168.1.2:8080
+SSLcert="https://www.dropbox.com/s/yozclk8gakxy137/fullchain.pem?dl=1"
+SSLkey="https://www.dropbox.com/s/0h5itorxai1b9xu/privkey.pem?dl=1"
 
 
 #------------------------------------------
 # Installation starts
 #------------------------------------------
  apt-get update -y && apt-get upgrade -y
- apt-get install nginx-full openssl wget curl -y
+ apt-get install nginx-full openssl wget -y
+ 
  nginx -t
  rm -rf /etc/nginx/sites-enabled/default
- 
- cat > /etc/nginx/sites-available/stevehome.online <<EOF
+ cat > /etc/nginx/sites-available/stevehome.online <<'EOF'
 server{
         listen 80;
         server_name stevehome.online;
@@ -43,7 +45,7 @@ server{
         ssl_dhparam /etc/nginx/ssl/dhparam.pem;
 
     location / {
-        proxy_pass http://$IP:8080;
+        proxy_pass http://127.0.0.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -54,13 +56,16 @@ server{
     }
 }
 EOF
+ sed -i "s/127.0.0.1/$WebSrvAddress/" /etc/nginx/sites-available/stevehome.online
+ 
  ln -s /etc/nginx/sites-available/stevehome.online /etc/nginx/sites-enabled/stevehome.online
  mkdir /etc/nginx/ssl
  openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
- #curl -L -o /etc/nginx/ssl/stevehome.online-cert.pem "https://drive.google.com/uc?export=download&id=1P7Cv1O03EgdW-PtLOiytynSkDX530huI"
- #curl -L -o /etc/nginx/ssl/stevehome.online-key.pem "https://drive.google.com/uc?export=download&id=1vE5ytGVBOtYNZIwmUVQMZa1JA1Sm27E7"
- #nginx -t
- #systemctl reload nginx
+ wget -O /etc/nginx/ssl/stevehome.online-cert.pem $SSLcert
+ wget -O /etc/nginx/ssl/stevehome.online-key.pem $SSLkey
+ 
+ nginx -t
+ systemctl reload nginx
  
 #------------------------------------------
 # Post install customizations
@@ -72,22 +77,17 @@ EOF
 #------------------------------------------
 
 cat <<EOF
-         _nnnn_
-        dGGGGMMb
-       @p~qp~~qMb
-       M|@||@) M|        Base box bento/ubuntu-16.04
-       @,----.JM|        SSH 2222 (guest)
-      JS^\__/  qKL       HTTP 80 (guest) => 8080 (host)
-     dZP        qKRb     HTTPS 443 (guest) => 4444 (host)
-    dZP          qKKb    Log location /var/logs/nginx
-   fZP            SMMb   Cert location /etc/nginx/ssl/
-   HZM            MMMM   Version 0.0.1b
-   FqM            MMMM   Keywords nginx unrar ssl certificate tls ubuntu
- __| '.        |\dS'qML  
- |    `.       | `' \Zq
-_)      \.___.,|     .'
-\____   )MMMMMP|   .'
-     `-'       `--'
+#------------------------------------------
+# Install complete
+#------------------------------------------
+Base Docker image ubuntu-16.04
+SSH 2222 (guest)
+HTTP 80 (guest) => 8080 (host)
+Log location /var/logs/nginx
+Cert location /etc/nginx/ssl/
+Version 0.0.1b
+Keywords nginx unrar ssl certificate tls ubuntu
+
 EOF
 
 
